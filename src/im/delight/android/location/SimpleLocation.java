@@ -102,6 +102,7 @@ public class SimpleLocation {
 	private static final float LONGITUDE_TO_KILOMETER_AT_ZERO_LATITUDE = 111.320f;
 	/** The PRNG that is used for location blurring */
 	private static final Random mRandom = new Random();
+	private static final double SQUARE_ROOT_TWO = Math.sqrt(2);
 	/** The last location that was internally cached when creating new instances in the same process */
 	private static Location mCachedPosition;
 	/** The LocationManager instance used to query the device location */
@@ -221,17 +222,25 @@ public class SimpleLocation {
 		}
 		else {
 			Location newLocation = new Location(originalLocation);
-			int randomBlurMeter = mRandom.nextInt(mBlurRadius);
 
-			if (mRandom.nextBoolean()) {
-				newLocation.setLatitude(newLocation.getLatitude() + meterToLatitude(randomBlurMeter));
-			}
-			else {
-				newLocation.setLongitude(newLocation.getLongitude() + meterToLongitude(randomBlurMeter, newLocation.getLatitude()));
-			}
+			double blurMeterLong = calculateRandomOffset(mBlurRadius) / SQUARE_ROOT_TWO;
+			double blurMeterLat = calculateRandomOffset(mBlurRadius) / SQUARE_ROOT_TWO;
+
+			newLocation.setLongitude(newLocation.getLongitude() + meterToLongitude(blurMeterLong, newLocation.getLatitude()));
+			newLocation.setLatitude(newLocation.getLatitude() + meterToLatitude(blurMeterLat));
 
 			return newLocation;
 		}
+	}
+
+	/**
+	 * For any radius `n`, calculate a random offset in the range `[-n, n]`
+	 *
+	 * @param radius the radius
+	 * @return the random offset
+	 */
+	private static int calculateRandomOffset(final int radius) {
+		return mRandom.nextInt((radius + 1) * 2) - radius;
 	}
 
 	/**
