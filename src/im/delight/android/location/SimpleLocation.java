@@ -16,6 +16,8 @@ package im.delight.android.location;
  * limitations under the License.
  */
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import java.util.Random;
 import android.provider.Settings;
 import android.content.Intent;
@@ -29,7 +31,7 @@ import android.location.LocationManager;
 public class SimpleLocation {
 
 	/** Wrapper for two coordinates (latitude and longitude) */
-	public static class Point {
+	public static class Point implements Parcelable {
 
 		/** The latitude of the point */
 		public final double latitude;
@@ -50,6 +52,36 @@ public class SimpleLocation {
 		@Override
 		public String toString() {
 			return "("+latitude+", "+longitude+")";
+		}
+
+		public static final Parcelable.Creator<Point> CREATOR = new Parcelable.Creator<Point>() {
+
+			@Override
+			public Point createFromParcel(Parcel in) {
+				return new Point(in);
+			}
+
+			@Override
+			public Point[] newArray(int size) {
+				return new Point[size];
+			}
+
+		};
+
+		@Override
+		public int describeContents() {
+			return 0;
+		}
+
+		@Override
+		public void writeToParcel(Parcel out, int flags) {
+			out.writeDouble(latitude);
+			out.writeDouble(longitude);
+		}
+
+		private Point(Parcel in) {
+			latitude = in.readDouble();
+			longitude = in.readDouble();
 		}
 
 	}
