@@ -198,6 +198,8 @@ public class SimpleLocation {
 			endUpdates();
 		}
 
+		mPosition = getCachedPosition();
+
 		mLocationListener = createLocationListener();
 		mLocationManager.requestLocationUpdates(getProviderName(), mInterval, 0, mLocationListener);
 	}
