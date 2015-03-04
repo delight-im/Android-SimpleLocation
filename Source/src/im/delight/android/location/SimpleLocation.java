@@ -377,7 +377,7 @@ public class SimpleLocation {
 		// if both fine location (GPS) and coarse location (network) are acceptable
 		else {
 			// if we can use coarse location (network)
-			if (mLocationManager.isProviderEnabled(PROVIDER_COARSE)) {
+			if (hasLocationEnabled(PROVIDER_COARSE)) {
 				// if we wanted passive mode
 				if (mPassive) {
 					// throw an exception because this is not possible
@@ -391,8 +391,15 @@ public class SimpleLocation {
 			}
 			// if coarse location (network) is not available
 			else {
-				// we have to use fine location (GPS)
-				return getProviderName(true);
+				// if we can use fine location (GPS)
+				if (hasLocationEnabled(PROVIDER_FINE) || hasLocationEnabled(PROVIDER_FINE_PASSIVE)) {
+					// we have to use fine location (GPS) because coarse location (network) was not available
+					return getProviderName(true);
+				}
+				// no location is available so return the provider with the minimum permission level
+				else {
+					return PROVIDER_COARSE;
+				}
 			}
 		}
 	}
