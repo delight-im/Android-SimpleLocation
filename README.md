@@ -34,28 +34,58 @@ For coarse location (network location), add the following permission in your `An
 ### Retrieve the location from the device
 
 ```
-// construct a new instance for this library
-SimpleLocation location = new SimpleLocation(this);
+public class MyActivity extends Activity {
 
-if (location.hasLocationEnabled()) {
-	// ask the device to update the location data
-	location.beginUpdates();
-	...
-	
-	// get the location from the device (alternative A)
-	double lat = location.getLatitude();
-	double long = location.getLongitude();
-	
-	// get the location from the device (alternative B)
-	SimpleLocation.Point coords = location.getPosition();
-	
-	...
-	// ask the device to stop location updates to save battery
-	location.endUpdates();
-}
-else {
-	// ask the user to enable location access
-	location.openSettings(this);
+	private SimpleLocation location;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// ...
+
+		// construct a new instance of SimpleLocation
+		location = new SimpleLocation(this);
+
+		// if we can't access the location yet
+		if (!location.hasLocationEnabled()) {
+			// ask the user to enable location access
+			SimpleLocation.openSettings(this);
+		}
+
+		findViewById(R.id.someView).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final double latitude = location.getLatitude();
+				final double longitude = location.getLatitude();
+
+				// TODO
+			}
+
+		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		// make the device update its location
+		location.beginUpdates();
+
+		// ...
+	}
+
+	@Override
+	protected void onPause() {
+		// stop location updates (saves battery)
+		location.endUpdates();
+
+		// ...
+
+		super.onPause();
+	}
+
 }
 ```
 
