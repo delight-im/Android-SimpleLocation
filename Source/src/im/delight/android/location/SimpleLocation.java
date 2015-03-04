@@ -174,21 +174,15 @@ public class SimpleLocation {
 	 * @return whether location access is enabled or not
 	 */
 	public boolean hasLocationEnabled() {
-		if (mRequireFine) {
-			return mLocationManager.isProviderEnabled(getProviderName());
+		return hasLocationEnabled(getProviderName());
+	}
+
+	private boolean hasLocationEnabled(final String providerName) {
+		try {
+			return mLocationManager.isProviderEnabled(providerName);
 		}
-		else {
-			if (mLocationManager.isProviderEnabled(getProviderName(false))) {
-				return true;
-			}
-			else {
-				try {
-					return mLocationManager.isProviderEnabled(getProviderName(true));
-				}
-				catch (Exception e) {
-					return false;
-				}
-			}
+		catch (Exception e) {
+			return false;
 		}
 	}
 
