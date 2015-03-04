@@ -369,7 +369,10 @@ public class SimpleLocation {
 	 * @return the provider's name
 	 */
 	private String getProviderName(final boolean requireFine) {
+		// if fine location (GPS) is required
 		if (requireFine) {
+			// we just have to decide between active and passive mode
+
 			if (mPassive) {
 				return PROVIDER_FINE_PASSIVE;
 			}
@@ -377,12 +380,25 @@ public class SimpleLocation {
 				return PROVIDER_FINE;
 			}
 		}
+		// if both fine location (GPS) and coarse location (network) are acceptable
 		else {
-			if (mPassive) {
-				throw new RuntimeException("There is no passive provider for the coarse location");
+			// if we can use coarse location (network)
+			if (mLocationManager.isProviderEnabled(PROVIDER_COARSE)) {
+				// if we wanted passive mode
+				if (mPassive) {
+					// throw an exception because this is not possible
+					throw new RuntimeException("There is no passive provider for the coarse location");
+				}
+				// if we wanted active mode
+				else {
+					// use coarse location (network)
+					return PROVIDER_COARSE;
+				}
 			}
+			// if coarse location (network) is not available
 			else {
-				return PROVIDER_COARSE;
+				// we have to use fine location (GPS)
+				return getProviderName(true);
 			}
 		}
 	}
