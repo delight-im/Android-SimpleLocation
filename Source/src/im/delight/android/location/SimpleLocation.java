@@ -414,7 +414,12 @@ public class SimpleLocation {
 			return mCachedPosition;
 		}
 		else {
-			return mLocationManager.getLastKnownLocation(getProviderName());
+			try {
+				return mLocationManager.getLastKnownLocation(getProviderName());
+			}
+			catch (Exception e) {
+				return null;
+			}
 		}
 	}
 
