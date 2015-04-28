@@ -86,6 +86,14 @@ public class SimpleLocation {
 
 	}
 
+	/** Callback that can be implemented in order to listen for events */
+	public static interface Listener {
+
+		/** Called whenever the device's position changes so that you can call {@link SimpleLocation#getPosition()} */
+		public void onPositionChanged();
+
+	}
+
 	/** The internal name of the provider for the coarse location */
 	private static final String PROVIDER_COARSE = LocationManager.NETWORK_PROVIDER;
 	/** The internal name of the provider for the fine location */
@@ -113,12 +121,15 @@ public class SimpleLocation {
 	private final boolean mPassive;
 	/** The internal after which new location updates are requested (in milliseconds) where longer intervals save battery */
 	private final long mInterval;
+	/** Whether to require a new location (`true`) or accept old (last known) locations as well (`false`) */
+	private final boolean mRequireNewLocation;
 	/** The blur radius (in meters) that will be used to blur the location for privacy reasons */
 	private int mBlurRadius;
 	/** The LocationListener instance used internally to listen for location updates */
 	private LocationListener mLocationListener;
 	/** The current location with latitude, longitude, speed and altitude */
 	private Location mPosition;
+	private Listener mListener;
 
 	/**
 	 * Constructs a new instance with default granularity, mode and interval
@@ -159,13 +170,38 @@ public class SimpleLocation {
 	 * @param interval the interval to request new location updates after (in milliseconds) where longer intervals save battery
 	 */
 	public SimpleLocation(final Context context, final boolean requireFine, final boolean passive, final long interval) {
+		this(context, requireFine, passive, interval, false);
+	}
+
+	/**
+	 * Constructs a new instance
+	 *
+	 * @param context the Context reference to get the system service from
+	 * @param requireFine whether to require fine location or use coarse location
+	 * @param passive whether to use passive mode (to save battery) or active mode
+	 * @param interval the interval to request new location updates after (in milliseconds) where longer intervals save battery
+	 * @param requireNewLocation whether to require a new location (`true`) or accept old (last known) locations as well (`false`)
+	 */
+	public SimpleLocation(final Context context, final boolean requireFine, final boolean passive, final long interval, final boolean requireNewLocation) {
 		mLocationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		mRequireFine = requireFine;
 		mPassive = passive;
 		mInterval = interval;
+		mRequireNewLocation = requireNewLocation;
 
-		mPosition = getCachedPosition();
-		cachePosition();
+		if (!mRequireNewLocation) {
+			mPosition = getCachedPosition();
+			cachePosition();
+		}
+	}
+
+	/**
+	 * Attaches or detaches a listener that informs about certain events
+	 *
+	 * @param listener the `SimpleLocation.Listener` instance to attach or `null` to detach
+	 */
+	public void setListener(final Listener listener) {
+		mListener = listener;
 	}
 
 	/**
@@ -192,7 +228,9 @@ public class SimpleLocation {
 			endUpdates();
 		}
 
-		mPosition = getCachedPosition();
+		if (!mRequireNewLocation) {
+			mPosition = getCachedPosition();
+		}
 
 		mLocationListener = createLocationListener();
 		mLocationManager.requestLocationUpdates(getProviderName(), mInterval, 0, mLocationListener);
@@ -333,6 +371,10 @@ public class SimpleLocation {
 			public void onLocationChanged(Location location) {
 				mPosition = location;
 				cachePosition();
+
+				if (mListener != null) {
+					mListener.onPositionChanged();
+				}
 			}
 
 			@Override
