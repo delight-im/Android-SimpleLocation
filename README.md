@@ -21,19 +21,19 @@ Utility class for easy access to the device location on Android
 
 For fine location (GPS location), add the following permission in your `AndroidManifest.xml`:
 
-```
+```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 
 For coarse location (network location), add the following permission in your `AndroidManifest.xml`:
 
-```
+```xml
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 ```
 
 ### Retrieve the location from the device
 
-```
+```java
 public class MyActivity extends Activity {
 
     private SimpleLocation location;
@@ -92,7 +92,7 @@ public class MyActivity extends Activity {
 
 ### Calculate the distance between two locations
 
-```
+```java
 // alternative A
 location.calculateDistance(startLatitude, startLongitude, endLatitude, endLongitude);
 
@@ -102,7 +102,7 @@ location.calculateDistance(startPoint, endPoint);
 
 ### Blur the location for privacy reasons
 
-```
+```java
 // reduce the precision to 10,000m for privacy reasons
 location.setBlurRadius(10000);
 ```
