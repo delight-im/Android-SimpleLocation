@@ -36,55 +36,55 @@ For coarse location (network location), add the following permission in your `An
 ```
 public class MyActivity extends Activity {
 
-	private SimpleLocation location;
+    private SimpleLocation location;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		// ...
+        // ...
 
-		// construct a new instance of SimpleLocation
-		location = new SimpleLocation(this);
+        // construct a new instance of SimpleLocation
+        location = new SimpleLocation(this);
 
-		// if we can't access the location yet
-		if (!location.hasLocationEnabled()) {
-			// ask the user to enable location access
-			SimpleLocation.openSettings(this);
-		}
+        // if we can't access the location yet
+        if (!location.hasLocationEnabled()) {
+            // ask the user to enable location access
+            SimpleLocation.openSettings(this);
+        }
 
-		findViewById(R.id.someView).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.someView).setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				final double latitude = location.getLatitude();
-				final double longitude = location.getLongitude();
+            @Override
+            public void onClick(View v) {
+                final double latitude = location.getLatitude();
+                final double longitude = location.getLongitude();
 
-				// TODO
-			}
+                // TODO
+            }
 
-		});
-	}
+        });
+    }
 
-	@Override
-	protected void onResume() {
-		super.onResume();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-		// make the device update its location
-		location.beginUpdates();
+        // make the device update its location
+        location.beginUpdates();
 
-		// ...
-	}
+        // ...
+    }
 
-	@Override
-	protected void onPause() {
-		// stop location updates (saves battery)
-		location.endUpdates();
+    @Override
+    protected void onPause() {
+        // stop location updates (saves battery)
+        location.endUpdates();
 
-		// ...
+        // ...
 
-		super.onPause();
-	}
+        super.onPause();
+    }
 
 }
 ```
