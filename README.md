@@ -58,7 +58,7 @@ public class MyActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				final double latitude = location.getLatitude();
-				final double longitude = location.getLatitude();
+				final double longitude = location.getLongitude();
 
 				// TODO
 			}
