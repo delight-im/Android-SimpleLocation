@@ -8,11 +8,24 @@ Utility class for easy access to the device location on Android
 
 ## Installation
 
- * Include one of the [JARs](JARs) in your `libs` folder
- * or
- * Copy the Java package to your project's source folder
- * or
- * Create a new library project from this repository and reference it in your project
+ * Add this library to your project
+   * Declare the Gradle repository in your root `build.gradle`
+
+     ```gradle
+     allprojects {
+         repositories {
+             maven { url "https://jitpack.io" }
+         }
+     }
+     ```
+
+   * Declare the Gradle dependency in your app module's `build.gradle`
+
+     ```gradle
+     dependencies {
+         compile 'com.github.delight-im:Android-SimpleLocation:v1.0.0'
+     }
+     ```
 
 ## Usage
 
