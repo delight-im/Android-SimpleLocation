@@ -2,6 +2,10 @@
 
 Utility class for easy access to the device location on Android
 
+## Requirements
+
+ * Android 2.2+
+
 ## Installation
 
  * Include one of the [JARs](JARs) in your `libs` folder
