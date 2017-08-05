@@ -138,6 +138,29 @@ boolean requireNewLocation = false;
 new SimpleLocation(context, requireFineGranularity, passiveMode, updateIntervalInMilliseconds, requireNewLocation);
 ```
 
+### Retrieving available data
+
+```java
+SimpleLocation.Point position = location.getPosition();
+// double latitude = position.latitude;
+// and
+// double longitude = position.longitude;
+
+// or
+
+double latitude = location.getLatitude();
+// and
+double longitude = location.getLongitude();
+
+// or
+
+float speed = location.getSpeed();
+
+// or
+
+double altitude = location.getAltitude();
+```
+
 ### Calculating the distance between two locations
 
 ```java
