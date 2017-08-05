@@ -106,8 +106,7 @@ public class MyActivity extends Activity {
 }
 ```
 
-
-### Calculate the distance between two locations
+### Calculating the distance between two locations
 
 ```java
 double startLatitude = 59.95;
