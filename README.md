@@ -106,6 +106,38 @@ public class MyActivity extends Activity {
 }
 ```
 
+### Extended constructor options
+
+```java
+Context context = this;
+boolean requireFineGranularity = false;
+new SimpleLocation(context, requireFineGranularity);
+
+// or
+
+Context context = this;
+boolean requireFineGranularity = false;
+boolean passiveMode = false;
+new SimpleLocation(context, requireFineGranularity, passiveMode);
+
+// or
+
+Context context = this;
+boolean requireFineGranularity = false;
+boolean passiveMode = false;
+long updateIntervalInMilliseconds = 10 * 60 * 1000;
+new SimpleLocation(context, requireFineGranularity, passiveMode, updateIntervalInMilliseconds);
+
+// or
+
+Context context = this;
+boolean requireFineGranularity = false;
+boolean passiveMode = false;
+long updateIntervalInMilliseconds = 10 * 60 * 1000;
+boolean requireNewLocation = false;
+new SimpleLocation(context, requireFineGranularity, passiveMode, updateIntervalInMilliseconds, requireNewLocation);
+```
+
 ### Calculating the distance between two locations
 
 ```java
