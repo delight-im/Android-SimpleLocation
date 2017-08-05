@@ -123,11 +123,12 @@ Point endPoint = new SimpleLocation.Point(44.84, -0.58);
 location.calculateDistance(startPoint, endPoint);
 ```
 
-### Blur the location for privacy reasons
+### Blurring the location (for privacy reasons)
 
 ```java
-// reduce the precision to 10,000m for privacy reasons
-location.setBlurRadius(10000);
+// reduce the precision to 10,000m (for privacy reasons)
+int blurRadiusInMeters = 10000;
+location.setBlurRadius(blurRadiusInMeters);
 ```
 
 ## License
