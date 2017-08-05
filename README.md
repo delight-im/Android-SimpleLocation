@@ -110,10 +110,16 @@ public class MyActivity extends Activity {
 ### Calculate the distance between two locations
 
 ```java
-// alternative A
+double startLatitude = 59.95;
+double startLongitude = 30.3;
+double endLatitude = 44.84;
+double endLongitude = -0.58;
 location.calculateDistance(startLatitude, startLongitude, endLatitude, endLongitude);
 
-// alternative B
+// or
+
+Point startPoint = new SimpleLocation.Point(59.95, 30.3);
+Point endPoint = new SimpleLocation.Point(44.84, -0.58);
 location.calculateDistance(startPoint, endPoint);
 ```
 
