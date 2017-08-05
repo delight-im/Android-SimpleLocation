@@ -106,6 +106,18 @@ public class MyActivity extends Activity {
 }
 ```
 
+### Getting notified about location updates
+
+```java
+location.setListener(new SimpleLocation.Listener() {
+
+    public void onPositionChanged() {
+        // new location data has been received and can be accessed
+    }
+
+});
+```
+
 ### Extended constructor options
 
 ```java
