@@ -35,10 +35,12 @@ public class MainActivity extends Activity {
 				final double latitude = mLocation.getLatitude();
 				final double longitude = mLocation.getLongitude();
 				final long timestampInMilliseconds = mLocation.getTimestampInMilliseconds();
+				final long elapsedTimeInNanoseconds = mLocation.getElapsedTimeInNanoseconds();
 
 				Toast.makeText(MainActivity.this, "Latitude: "+latitude, Toast.LENGTH_SHORT).show();
 				Toast.makeText(MainActivity.this, "Longitude: "+longitude, Toast.LENGTH_SHORT).show();
 				Toast.makeText(MainActivity.this, "Timestamp in milliseconds: "+timestampInMilliseconds, Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this, "Elapsed time in nanoseconds: "+elapsedTimeInNanoseconds, Toast.LENGTH_SHORT).show();
 			}
 
 		});
