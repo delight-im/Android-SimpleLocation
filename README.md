@@ -166,6 +166,10 @@ double longitude = location.getLongitude();
 
 // or
 
+long timestampInMilliseconds = location.getTimestampInMilliseconds();
+
+// or
+
 float speed = location.getSpeed();
 
 // or
