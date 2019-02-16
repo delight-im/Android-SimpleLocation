@@ -16,9 +16,11 @@ package im.delight.android.location;
  * limitations under the License.
  */
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.Random;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.content.Intent;
 import android.os.Bundle;
@@ -333,6 +335,25 @@ public class SimpleLocation {
 		}
 		else {
 			return mPosition.getTime();
+		}
+	}
+
+	/**
+	 * Returns the elapsed time since system boot of the current location in nanoseconds
+	 *
+	 * @return the elapsed time (if any) or `0`
+	 */
+	public long getElapsedTimeInNanoseconds() {
+		if (mPosition == null) {
+			return 0L;
+		}
+		else {
+			if (Build.VERSION.SDK_INT >= 17) {
+				return mPosition.getElapsedRealtimeNanos();
+			}
+			else {
+				return (SystemClock.elapsedRealtime() + getTimestampInMilliseconds() - System.currentTimeMillis()) * 1000000;
+			}
 		}
 	}
 
