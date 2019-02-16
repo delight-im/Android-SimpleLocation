@@ -170,6 +170,10 @@ long timestampInMilliseconds = location.getTimestampInMilliseconds();
 
 // or
 
+long elapsedTimeInNanoseconds = location.getElapsedTimeInNanoseconds();
+
+// or
+
 float speed = location.getSpeed();
 
 // or
