@@ -401,7 +401,7 @@ public class SimpleLocation {
 	/**
 	 * Returns the name of the location provider that matches the specified settings and depends on the given granularity
 	 *
-	 * @param whether to require fine location or use coarse location
+	 * @param requireFine whether to require fine location or use coarse location
 	 * @return the provider's name
 	 */
 	private String getProviderName(final boolean requireFine) {
