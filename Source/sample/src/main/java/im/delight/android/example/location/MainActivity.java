@@ -34,9 +34,11 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				final double latitude = mLocation.getLatitude();
 				final double longitude = mLocation.getLongitude();
+				final long timestampInMilliseconds = mLocation.getTimestampInMilliseconds();
 
 				Toast.makeText(MainActivity.this, "Latitude: "+latitude, Toast.LENGTH_SHORT).show();
 				Toast.makeText(MainActivity.this, "Longitude: "+longitude, Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this, "Timestamp in milliseconds: "+timestampInMilliseconds, Toast.LENGTH_SHORT).show();
 			}
 
 		});
