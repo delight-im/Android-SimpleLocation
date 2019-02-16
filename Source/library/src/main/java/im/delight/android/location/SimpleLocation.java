@@ -323,6 +323,20 @@ public class SimpleLocation {
 	}
 
 	/**
+	 * Returns the timestamp of the current location as a number of milliseconds since January 1, 1970 (UTC)
+	 *
+	 * @return the timestamp (if any) or `0`
+	 */
+	public long getTimestampInMilliseconds() {
+		if (mPosition == null) {
+			return 0L;
+		}
+		else {
+			return mPosition.getTime();
+		}
+	}
+
+	/**
 	 * Returns the current speed
 	 *
 	 * @return the current speed (if detected) or `0`
