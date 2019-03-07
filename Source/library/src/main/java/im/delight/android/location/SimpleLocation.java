@@ -423,6 +423,10 @@ public class SimpleLocation {
 
 		};
 	}
+	
+	public Location getLastLocation() {
+		return this.mPosition;
+	}
 
 	/**
 	 * Returns the name of the location provider that matches the specified settings
