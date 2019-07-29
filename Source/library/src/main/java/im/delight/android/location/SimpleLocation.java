@@ -323,6 +323,20 @@ public class SimpleLocation {
 			return position.getLongitude();
 		}
 	}
+	
+	/**
+	 * Returns the accuracy of the current location
+	 *
+	 * @return the current accuracy
+	 */
+	public float getAccuracy() {
+		if (mPosition == null) {
+			return 0.0f;
+		}
+		else {
+			return mPosition.getAccuracy();
+		}
+	}
 
 	/**
 	 * Returns the timestamp of the current location as a number of milliseconds since January 1, 1970 (UTC)
