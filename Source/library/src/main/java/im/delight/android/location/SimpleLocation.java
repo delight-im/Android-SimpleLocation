@@ -330,12 +330,7 @@ public class SimpleLocation {
 	 * @return the current accuracy
 	 */
 	public float getAccuracy() {
-		if (mPosition == null) {
-			return 0.0f;
-		}
-		else {
-			return mPosition.getAccuracy();
-		}
+		return (mPosition == null) ? 0.0f : mPosition.getAccuracy();
 	}
 
 	/**
