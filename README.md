@@ -23,7 +23,7 @@ Utility class for easy access to the device location on Android
 
      ```gradle
      dependencies {
-         compile 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
+         compile 'com.github.delight-im:Android-SimpleLocation:v1.1.0'
      }
      ```
 
